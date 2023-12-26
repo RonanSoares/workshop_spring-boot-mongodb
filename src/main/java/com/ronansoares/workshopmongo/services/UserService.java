@@ -1,12 +1,14 @@
 package com.ronansoares.workshopmongo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ronansoares.workshopmongo.domain.User;
 import com.ronansoares.workshopmongo.repository.UserRepository;
+import com.ronansoares.workshopmongo.services.exception.ObjectNotFoundException;
 
 @Service   //Avisa ao Spring que é uma classe de serviço para injeção em outras classes
 public class UserService {
@@ -18,4 +20,13 @@ public class UserService {
 	public List<User> findAll(){
 		return repo.findAll();   // Retorna todos os usuários.
 	}
+	
+	/*public User findById(String id) {
+		User user = repo.findOne(id);
+		if(user == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado");
+		}
+		return user;
+	}*/
+
 }
