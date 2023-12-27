@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,11 +34,11 @@ public class UserResource {
 	}
 	
 	// Método para retornar um usuário por id
-	/*	@RequestMapping(value="/{id}", method = RequestMethod.GET)       // Para avisar que esse método é um end point para esse caminho
+		@RequestMapping(value="/{id}", method = RequestMethod.GET)       // Para avisar que esse método é um end point para esse caminho
 		public ResponseEntity<UserDTO> findById(@PathVariable String id){      // Resp.Ent. para retornar resposta http completa com cabeçalhos erros etc
 			User obj = service.findById(id);						
 			return ResponseEntity.ok().body(new UserDTO(obj));        // Retorna resposta http com sucesso
-	}*/
+	}
 	
 	// Método para adicionar um usuário
 	@RequestMapping(method=RequestMethod.POST)
@@ -46,5 +47,11 @@ public class UserResource {
 		obj = service.insert(obj);           // Insere no DB
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+ 	public ResponseEntity<Void> delete(@PathVariable String id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }

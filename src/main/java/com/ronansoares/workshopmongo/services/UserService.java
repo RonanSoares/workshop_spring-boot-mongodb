@@ -22,16 +22,22 @@ public class UserService {
 		return repo.findAll();   // Retorna todos os usuários.
 	}
 	
-	/*public User findById(String id) {
-		User user = repo.findOne(id);
+	public User findById(String id) {
+		User user = repo.getReferenceById(id);
 		if(user == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado");
 		}
 		return user;
-	} */
+	} 
 	
 	public User insert(User obj) {
 		return repo.insert(obj);
+	}
+	
+	public void delete(String id){
+		findById(id);        // Faz a busca primeiro para ver se existe o id.
+		repo.deleteById(id);
+		
 	}
 	
 	public User fromDTO(UserDTO objDto) {
