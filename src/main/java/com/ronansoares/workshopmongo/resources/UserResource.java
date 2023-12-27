@@ -54,4 +54,13 @@ public class UserResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	// Método para atualizar um usuário
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> udate(@RequestBody UserDTO objDto, @PathVariable String id) {
+		User obj = service.fromDTO(objDto);  // Converte DTO para User
+		obj.setId(id);                       // Para garantir que o objeto terá o id da requisição
+		obj = service.Update(obj);           // Insere no DB
+		return ResponseEntity.noContent().build();
+	}
 }

@@ -40,6 +40,19 @@ public class UserService {
 		
 	}
 	
+	public User Update(User obj) {
+		User newObj = repo.getReferenceById(obj.getId());  //Busca o objeto no BD
+		updateData(newObj, obj);  // Chama o metodo udateData. Copia o obj e passa p o newObj
+		return repo.save(newObj); // Salva o novo newObj.
+	}
+	
+	// Método para att o usuario
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());    // Copia o obj name para o newObj name.
+		newObj.setEmail(obj.getEmail());
+		// Id não copia.
+	}
+
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
